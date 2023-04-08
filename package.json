@@ -1,5 +1,5 @@
 {
-  "name": "password-manager",
+  "name": "lock-box",
   "version": "1.0.0",
   "description": "Password Manager with Authentication",
   "main": "Initialiser.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Programmer1325/Password-Manager-and-Authenticator.git"
+    "url": "git+https://github.com/kr1zz7007/Lock-Box.git"
   },
   "keywords": [
     "mac",
@@ -19,9 +19,9 @@
   "author": "kr1zz",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Programmer1325/Password-Manager-and-Authenticator/issues"
+    "url": "https://github.com/kr1zz7007/Lock-Box.git/issues"
   },
-  "homepage": "https://github.com/Programmer1325/Password-Manager-and-Authenticator#readme",
+  "homepage": "https://github.com/kr1zz7007/Lock-Box.gi#readme",
   "devDependencies": {
     "electron": "^24.0.0"
   },
