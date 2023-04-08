@@ -3,8 +3,9 @@ const { join } = require('path');
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    minwidth: 800,
+    minheight: 600,
+    titleBarStyle: 'hidden',
     webPreferences: {
         preload: join(__dirname, 'ipcFunctions.js'),
     },

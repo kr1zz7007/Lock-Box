@@ -10,12 +10,46 @@
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
-    <title>Hello from Electron renderer!</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <title>Dashboard</title>
   </head>
   <body>
-    <h1>Hello from Electron renderer!</h1>
-    <p>👋</p>
-    <p id="info"></p>
+    <div class="wrapper">
+      <div class="sidebar">
+        <div class="sidebar-cursor"></div>
+        <div class="sidebar-header">
+          <h3>Menu</h3>
+        </div>
+        <div class="sidebar-content">
+          <div class="sidebar-item active" data-page="home">
+            <span>Home</span>
+          </div>
+          <div class="sidebar-item" data-page="passwords">
+            <span>Passwords</span>
+          </div>
+          <div class="sidebar-item" data-page="authentication">
+            <span>Authentication</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="page active" data-page="home">
+          <h1>Welcome to the Home page</h1>
+          <p>This is the content of the Home page.</p>
+        </div>
+
+        <div class="page" data-page="passwords">
+          <h1>Passwords</h1>
+          <p>This is the content of the Passwords page.</p>
+        </div>
+
+        <div class="page" data-page="authentication">
+          <h1>Authentication</h1>
+          <p>This is the content of the Authentication page.</p>
+        </div>
+      </div>
+    </div>
+    <script src="js/dashboard.js"></script>
   </body>
-  <script src="js/dashboard.js"></script>
 </html>
