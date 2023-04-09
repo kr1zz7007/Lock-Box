@@ -12,29 +12,36 @@ class ManagePassword:
     def __enter__(self):
         return self
 
-    def write_key(self, AccName, UsrName, UsrPass, URL, Path, TFA):
-        # NOTE Path will be in the format 'Folder1/Folder2/Entry'
-        ENTRYKEY = {"label": AccName, "Username": UsrName,
-                    "Password": UsrPass, "URL": URL, "2FA": TFA}
-        if Path != '':
-            # * For elements with Path
-            Path = Path.split('/')
-            EntryObj = create_nested_object(Path, ENTRYKEY)
-            self.DecryptedFile = merge_obj(EntryObj, self.DecryptedFile)
-
-        else:
-            self.DecryptedFile.append(ENTRYKEY)
+    def read_key(self):
+        return self.DecryptedFile
 
     def edit_key(self, Accname=None, UsrName=None, UsrPass=None, URL=None, Path=None, TFA=None):
         edit_label(self.DecryptedFile, Accname, new_username=UsrName,
                    new_password=UsrPass, new_url=URL, new_tfa=TFA)
 
-    def read_key(self):
-        return self.DecryptedFile
+    def write_key(self, AccName, UsrName, UsrPass, URL, Path, TFA):
+        # NOTE Path will be in the format 'Folder1/Folder2/Entry'
+        ENTRYKEY = {"label": AccName, "Username": UsrName,
+                    "Password": UsrPass, "URL": URL, "2FA": TFA}
 
-    def __exit__(self, self1, self2, self3):
+        if get_label_info(self.DecryptedFile, AccName) == None or get_label_info(self.DecryptedFile, AccName)[0] == None:
+            if Path != '':
+                # * For elements with Path
+                Path = Path.split('/')
+                EntryObj = create_nested_object(Path, ENTRYKEY)
+                self.DecryptedFile = merge_obj(EntryObj, self.DecryptedFile)
+
+            else:
+                self.DecryptedFile.append(ENTRYKEY)
+
+            return 'Success'
+        else:
+            return 'Name already exists'
+
+    def __exit__(self, exc_type, exc_value, traceback):
         print(json.dumps(self.DecryptedFile))
 
 
 with ManagePassword('P') as MP:
     print('hji')
+    print(MP.write_key('AccName', 'Minion', 'Discord@132', 'discord.com', 'Website/Prod', 'True'))

@@ -1,3 +1,6 @@
+from cv2 import imread, QRCodeDetector
+from re import search
+
 def create_nested_object(arr, LastValue):
     obj = {'label': arr[0], 'children': []}
     current_level = obj['children']
@@ -52,3 +55,35 @@ def edit_label(data, label, new_username=None, new_password=None, new_url=None, 
         elif 'children' in obj:
             edit_label(obj['children'], label, new_username,
                        new_password, new_url, new_tfa)
+
+
+def get_label_info(data, label):
+    for obj in data:
+        if 'label' in obj and obj['label'] == label:
+            return (obj.get('Username'), obj.get('Password'), obj.get('URL'), obj.get('2FA'))
+        elif 'children' in obj:
+            result = get_label_info(obj['children'], label)
+            if result is not None:
+                return result
+    return None
+
+
+def swap_username(new_username, url):
+    match = search(r"otpauth:\/\/totp\/([A-Za-z]+):(.+)\?secret=([A-Za-z0-9]+)&issuer=([A-Za-z]+)", url)
+    issuer = match.group(1)
+    secret = match.group(3)
+    old_username = match.group(2)
+    new_url = f"otpauth://totp/{new_username}?secret={secret}&issuer={issuer}"
+    return new_url
+
+def read_qr_code(filename):
+    image = imread(filename)
+
+    detector = QRCodeDetector()
+
+    data, vertices_array, binary_qrcode = detector.detectAndDecode(image)
+
+    if vertices_array is not None:
+        return data
+    else:
+        return 'There was some Error'
