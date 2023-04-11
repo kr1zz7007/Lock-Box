@@ -1,4 +1,3 @@
-from functions import *
 import oauth
 
 
@@ -9,10 +8,8 @@ class ManageOauth:
     def __enter__(self):
         return self
 
-    def create_new_acc(self, AccName, QRCodePath):
-        Path = swap_username(AccName, read_qr_code(QRCodePath))
-        # print(Path)
-        new_totp = oauth.runOAuth([Path]).strip().split('\n')[-1]
+    def create_new_acc(self, AccName, URI):
+        new_totp = oauth.runOAuth([URI]).strip().split('\n')[-1]
         return f"Success,{new_totp}"
 
     def get_totp(self, AccName):

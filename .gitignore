@@ -5,3 +5,4 @@ python/.DS_Store
 node_modules
 __pycache__/zerorpc.cpython-310.pyc
 python/__pycache__/functions.cpython-310.pyc
+.env
